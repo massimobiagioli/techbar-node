@@ -1,0 +1,21 @@
+{
+  "name": "Techbar",
+  "version": "1.0.0",
+  "description": "Techbar",
+  "author": {
+    "name": "massimo",
+    "email": "biagiolimassimo@gmail.com",
+    "url": "http://www.massimobiagioli.it"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "private": true,
+  "main": "server.js"
+}
