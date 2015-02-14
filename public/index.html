@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TECHBAR - TEST</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript">
+            var serverUrl = "/api/";
+            	
+            
+            function list() {
+            	var tags,
+            		partecipants,
+            		i,
+            		j;
+            		
+                $.ajax({
+                    type: "GET",
+                    url: serverUrl + "list",
+                    data: {
+                    	title: $("#txtSearchTitle").val(),
+                    	speaker: $("#txtSearchSpeaker").val(),
+                    	where: $("#txtSearchWhere").val(),
+                    	tag: $("#txtSearchTag").val(),
+                    	partecipant: $("#txtSearchPartecipant").val()
+                    }
+                })
+                .done(function(result) {
+                    tableContent = '';
+                    for (i = 0; i < result.length; i++) {
+                    	tags = '';
+                    	for (j = 0; j < result[i].tags.length; j++) {
+                    		tags += (result[i].tags[j]);
+                    		if (j < result[i].tags.length - 1) {
+                    			tags += ' - ';
+                    		}
+                    	}
+                    	
+                    	partecipants = '';
+                    	for (j = 0; j < result[i].partecipants.length; j++) {
+                    		partecipants += (result[i].partecipants[j].name + '(' + result[i].partecipants[j].email + ')');
+                    		if (j < result[i].partecipants.length - 1) {
+                    			partecipants += '<br/>';
+                    		}
+                    	}
+                    	
+                    	tableContent = tableContent + '<tr>' +
+                    		'<td>' + result[i].title + '</td>' +
+                    		'<td>' + result[i].speaker + '</td>' +
+                    		'<td>' + tags + '</td>' +
+                    		'<td>' + result[i].where + '</td>' +
+                    		'<td>' + result[i].when + '</td>' +
+                    		'<td>' + partecipants + '</td>' +
+                    		'</tr>';
+                    }
+                    
+                    resultContent = '<table border="1">' +
+                    	'<tr>' +
+                    	'<td><b>Title</b></td>' +
+                    	'<td><b>Speaker</b></td>' +
+                    	'<td><b>Tags</b></td>' +        
+                    	'<td><b>Where</b></td>' + 
+                    	'<td><b>When</b></td>' +
+                    	'<td><b>Partecipants</b></td>' +       	
+                    	'</tr>' + tableContent + '</tr>' +
+                    	'</table>';
+                    $("#results").html(resultContent);
+              
+                });        
+            }
+
+        </script>
+    </head>
+    <body>        
+        <h1>TECHBAR - TEST</h3>
+        
+        <h3>Search</h3>
+        
+        <!-- Parametri di ricerca -->
+        <div>
+        	<table>
+        		<tr>
+        			<td align="right">Title: </td>
+        			<td><input id="txtSearchTitle" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Speaker: </td>
+        			<td><input id="txtSearchSpeaker" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Where: </td>
+        			<td><input id="txtSearchWhere" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Tag: </td>
+        			<td><input id="txtSearchTag" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Partecipant: </td>
+        			<td><input id="txtSearchPartecipant" type="text" size="150"/></td>
+        		</tr>
+        	</table>
+        	<button onclick="list()">SEARCH</button>
+        </div>
+		
+		<br/>
+		<br/>
+		
+		<!-- Risultati -->       
+        <div>
+        	<table>
+        		<tr>
+        			<td align="right">Results: </td>
+        			<td><span id="results"/></td>
+        		</tr>
+        	</table>
+        </div>    
+        
+        <br/>
+        
+    </body>
+</html>
