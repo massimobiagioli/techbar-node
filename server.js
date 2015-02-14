@@ -16,13 +16,14 @@ var express = require('express'),
 	
 // Configurazione app
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
 
 // Configurazione Routes
 router.get('/list', routes.list);
+router.post('/insert', routes.insert);
 app.use('/api', router);
 
 // Connessione a MongoDb

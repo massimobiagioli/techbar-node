@@ -69,15 +69,73 @@
               
                 });        
             }
+            
+            function insert() {
+            	var tag1 = $("#txtTag1").val(),
+                	tag2 = $("#txtTag2").val(),
+                	tag3 = $("#txtTag3").val(),
+            		tags = [],
+            		partecipant1Name = $("#txtPartecipant1Name").val(),
+                	partecipant2Name = $("#txtPartecipant2Name").val(),
+                	partecipant3Name = $("#txtPartecipant3Name").val(),
+            		partecipant1Email = $("#txtPartecipant1Email").val(),
+                	partecipant2Email = $("#txtPartecipant2Email").val(),
+                	partecipant3Email = $("#txtPartecipant3Email").val(),
+            		partecipants = [];
+            	
+            	if (tag1) {
+                	tags.push(tag1);
+                } 
+                if (tag2) {
+                	tags.push(tag2);
+                } 
+                if (tag3) {
+                	tags.push(tag3);
+                } 
+            	
+            	if (partecipant1Name) {
+                	partecipants.push({
+                		name: partecipant1Name,
+                		email: partecipant1Email
+                	});
+                } 
+                if (partecipant2Name) {
+                	partecipants.push({
+                		name: partecipant2Name,
+                		email: partecipant2Email
+                	});
+                } 
+                if (partecipant3Name) {
+                	partecipants.push({
+                		name: partecipant3Name,
+                		email: partecipant3Email
+                	});
+                } 
+            	
+            	$.ajax({
+                    type: "POST",
+                    url: serverUrl + "insert",
+                    data: {                    	
+                        title: $("#txtTitle").val(),
+                    	speaker: $("#txtSpeaker").val(),
+                    	where: $("#txtWhere").val(),
+                    	tags: tags,
+                    	partecipants: partecipants                  
+                    }
+                })
+                .done(function(result) {                    
+                    $("#results").text(JSON.stringify(result));
+                });    
+            }
 
         </script>
     </head>
     <body>        
         <h1>TECHBAR - TEST</h3>
         
+        <!-- Ricerca -->
         <h3>Search</h3>
-        
-        <!-- Parametri di ricerca -->
+       
         <div>
         	<table>
         		<tr>
@@ -102,6 +160,46 @@
         		</tr>
         	</table>
         	<button onclick="list()">SEARCH</button>
+        </div>
+		
+		<br/>
+		<br/>
+		
+		<!-- Inserimento -->
+        <h3>Insert</h3>
+       
+        <div>
+        	<table>
+        		<tr>
+        			<td align="right">Title: </td>
+        			<td><input id="txtTitle" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Speaker: </td>
+        			<td><input id="txtSpeaker" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Where: </td>
+        			<td><input id="txtWhere" type="text" size="150"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Tags: </td>
+        			<td><input id="txtTag1" type="text" size="30"/> - <input id="txtTag2" type="text" size="30"/> - <input id="txtTag3" type="text" size="30"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Partecipant #1: </td>
+        			<td>Name: <input id="txtPartecipant1Name" type="text" size="65"/> - email: <input id="txtPartecipant1Email" type="text" size="65"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Partecipant #2: </td>
+        			<td>Name: <input id="txtPartecipant2Name" type="text" size="65"/> - email: <input id="txtPartecipant2Email" type="text" size="65"/></td>
+        		</tr>
+        		<tr>
+        			<td align="right">Partecipant #3: </td>
+        			<td>Name: <input id="txtPartecipant3Name" type="text" size="65"/> - email: <input id="txtPartecipant3Email" type="text" size="65"/></td>
+        		</tr>
+        	</table>
+        	<button onclick="insert()">INSERT</button>
         </div>
 		
 		<br/>
