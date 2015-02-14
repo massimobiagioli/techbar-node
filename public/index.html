@@ -52,6 +52,9 @@
                     		'<td>' + result[i].where + '</td>' +
                     		'<td>' + result[i].when + '</td>' +
                     		'<td>' + partecipants + '</td>' +
+                    		'<td>' +                     		 
+                    		'<button onclick="del(' + "'" + result[i]._id + "'" + ')">DELETE</button>' + 
+                    		'</td>' +
                     		'</tr>';
                     }
                     
@@ -62,7 +65,8 @@
                     	'<td><b>Tags</b></td>' +        
                     	'<td><b>Where</b></td>' + 
                     	'<td><b>When</b></td>' +
-                    	'<td><b>Partecipants</b></td>' +       	
+                    	'<td><b>Partecipants</b></td>' +  
+                    	'<td><b>Actions</b></td>' +    	
                     	'</tr>' + tableContent + '</tr>' +
                     	'</table>';
                     $("#results").html(resultContent);
@@ -127,7 +131,20 @@
                     $("#results").text(JSON.stringify(result));
                 });    
             }
-
+			
+			function del(eventId) {
+            	$.ajax({
+                    type: "DELETE",
+                    url: serverUrl + "delete",                   
+                    data: {                    	
+                        eventId: eventId                    
+                    }
+                })
+                .done(function(result) {                    
+                    list();
+                });    
+            }
+			
         </script>
     </head>
     <body>        

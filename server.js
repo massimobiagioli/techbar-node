@@ -24,6 +24,7 @@ app.use(express.static(__dirname + '/public'));
 // Configurazione Routes
 router.get('/list', routes.list);
 router.post('/insert', routes.insert);
+router.delete('/delete', routes.del);
 app.use('/api', router);
 
 // Connessione a MongoDb
