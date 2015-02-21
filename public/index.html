@@ -145,6 +145,19 @@
                 });    
             }
 			
+			function mapReduceDemo() {
+            	$.ajax({
+                    type: "GET",
+                    url: serverUrl + "mapReduceDemo",        
+                    data: {                    	                        
+                    	where: $("#txtMapReuceWhere").val()               
+                    }           
+                })
+                .done(function(result) {                    
+                    $("#results").text(JSON.stringify(result));
+                });    
+            }
+			
         </script>
     </head>
     <body>        
@@ -222,6 +235,22 @@
 		<br/>
 		<br/>
 		
+		<!-- Inserimento -->
+        <h3>Map-reduce</h3>
+		
+		<div>
+        	<table>
+        		<tr>
+        			<td align="right">Where: </td>
+        			<td><input id="txtMapReduceWhere" type="text" size="150"/></td>
+        			<td><button onclick="mapReduceDemo()">GO</button></td>
+        		</tr>        		
+        	</table>        	
+        </div>		
+		
+		<br/>
+		<br/>
+		
 		<!-- Risultati -->       
         <div>
         	<table>
@@ -231,8 +260,6 @@
         		</tr>
         	</table>
         </div>    
-        
-        <br/>
-        
+               
     </body>
 </html>
