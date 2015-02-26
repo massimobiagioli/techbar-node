@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 // Scrive dati di esempio
 var initDb = function() {
 	var event;
-	
+	/*
 	// #1
 	event = new models.Event({
 		title: 'Java Night',
@@ -71,7 +71,35 @@ var initDb = function() {
 			email: 'anna.verdi@gmail.com'
 		}]
 	});
+	event.save();*/
+	
+	event = new models.Event({
+		title: 'Lean After Pizza2',
+		speaker: 'Roberto Viola',
+		where: 'Apra Informatica Jesi',
+		when: moment('2014-11-22').toDate(),
+		tags: 1, //['lean'],
+		partecipants: [{
+			name: 'Mario Rossi',
+			email: 'mario.rossi@gmail.com',
+		}, {
+			name: 'Federico Marroni',
+			email: 'fedemarroni@libero.it'
+		}, {
+			name: 'Bruno Neri',
+			email: 'neribruno@yahoo.it'
+		}, {
+			name: 'Anna Verdi',
+			email: 'anna.verdi@gmail.com'
+		}]
+	});
 	event.save();
+	
+	models.Event.findOne({ "_id": "54ee3b0c1076aeec1d66ebd7" }, function(err, doc) {
+		if (!err) {
+			doc.save();
+		} 
+	});
 };
 
 // Connessione a MongoDb
